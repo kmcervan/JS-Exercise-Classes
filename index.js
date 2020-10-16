@@ -41,8 +41,28 @@ class Airplane {
 */
 
 class Person {
-
+  constructor(name,age) {
+    this.name = name;
+    this.age = age;
+    this.stomach = [];
+  }
+  eat(edible){
+    if(this.stomach.length <= 10){
+      this.stomach.push(edible);
+    }
+  }
+  poop(){
+    this.stomach = [];
+  }
+  toString = function(){
+    return `${this.name}, ${this.age}`;
+  }
 }
+let personOne = new Person("Mary",50);
+
+personOne.eat('pizza');
+personOne.eat('Doritos');
+
 
 /*
   TASK 2
@@ -59,8 +79,24 @@ class Person {
 */
 
 class Car {
-
+  constructor(model, milesPerGallon){
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0
+  }
+  fill(gallons){
+    this.tank = this.tank + gallons;
+  }
+  drive(distance){
+    this.odometer = distance + this.odometer;
+    this.tank = distance/this.milesPerGallon - this.tank;
+    return `I ran out of fuel at ${this.odometer} miles!`
+  }
 }
+let prius = new Car ({model: "Prius", milesPerGallon: 38, tank: 0, odometer: 0});
+prius.fill(28);
+prius.drive(201);
 
 /*
   TASK 3
@@ -75,8 +111,19 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-
+  constructor(obj){
+    this.name = obj.name;
+    this.age = obj.age;
+    this.location = obj.location;
+  }
+  speak(){
+    return `Hello my name is ${this.name}, I am from ${this.location}`;
+  }
 }
+
+let person = new Lambdasian({name: "Petar", age: 24, location: "Dallas"})
+
+console.log(person.speak);
 
 /*
   TASK 4
@@ -92,9 +139,30 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
-
+class Instructor extends Lambdasian {
+  constructor(oneObj){
+    super(oneObj);
+    this.specialty = oneObj.specialty;
+    this.favLanguage = oneObj.favLanguage;
+    this.catchPhrase = oneObj.catchPhrase;
+  }
+  demo(subject){
+    return `Today we are learning about ${subject}`;
+  }
+  grade(subject){
+    return `${child.name} receives a perfect score on ${subject}`;
+  }
 }
+let child = new Instructor({
+  name:"Luis", 
+  age:52,
+  location:"Dallas", 
+  specialty:"redux", 
+  favLanguage:"Python",
+  catchPhrase:"It's all about Me son!",
+})
+
+console.log(child.grade("redux"));
 
 /*
   TASK 5
@@ -111,9 +179,23 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
-
+class Student extends Lambdasian {
+  constructor(stuObj){
+    super(stuObj);
+    this.previousBackground = stuObj.previousBackground;
+    this.className = stuObj.className;
+    this.favSubjects = ['JS', 'Node', 'Redux'];
+  }
+  listSubjects(){
+    return `Loving ${this.favSubjects}!`
+  }
+  PRAssignment(subject){
+    return `${studentOne.name} has submitted a PR for ${subject}`
+  }
 }
+let studentOne = new Student({name:"Matt", age:26, location:"Dallas", previousBackground:"Plumber", className:"CS132", favSubjects: ['JS', 'Node', 'Redux']});
+
+console.log(studentOne.listSubjects);
 
 /*
   TASK 6
@@ -128,9 +210,31 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
-
+class ProjectManager extends Instructor {
+  constructor(pmObj){
+    super(pmObj);
+    this.gradClassName = pmObj.gradClassName;
+    this.favInstructor = pmObj.favInstructor;
+  }
+  standUp(channel){
+    return `${name} announces to ${channel}, @channel standy times!`
+  }
+  debugCode(object, subject){
+    return `${name} debugs ${project.name}'s code on ${subject}`
+  }
 }
+let project = new ProjectManager({
+  name:"Dan",
+  age:26,
+  location:"Dallas",
+  specialty: "Python",
+  favLanguage: "Python",
+  catchPhrase: "Don't forget about the Homies!",
+  gradClassName: "Web25",
+  favInstructor: "Luis",
+})
+console.log(project.standUp('Help'));
+console.log(project.debugCode('apple', 'computer'));
 
 /*
   STRETCH PROBLEM (no tests!)
