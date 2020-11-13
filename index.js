@@ -119,12 +119,12 @@ class Lambdasian {
     this.age = obj.age;
     this.location = obj.location;
   }
-  speak(){
+  speak(obj){
     return `Hello my name is ${this.name}, I am from ${this.location}`;
   }
 }
 let person = new Lambdasian({name: 'Petar', age:24, location:'Dallas'});
-console.log(person.speak);
+console.log(person.speak('object'));
 
 /*
   TASK 4
@@ -151,7 +151,7 @@ class Instructor extends Lambdasian {
     return `Today we are learning about ${subject}`;
   }
   grade(subject){
-    return `${this.name} receives a perfect score on (subject)`
+    return `${this.name} receives a perfect score on ${subject}`;
   }
 }
 let student = new Instructor({
@@ -163,6 +163,7 @@ let student = new Instructor({
   catchPhrase:'It is all about me son!',
 })
 console.log(student.grade('redux'));
+console.log(student.demo('Math'));
 
 /*
   TASK 5
@@ -186,7 +187,7 @@ class Student extends Lambdasian {
     this.className = stuObj.className;
     this.favSubjects = ['JS', 'Node', 'Redux'];
   }
-  listSubjects(){
+  listSubjects(obj){
     return `Loving ${this.favSubjects}!`
   }
   PRAssignment(subject){
@@ -201,7 +202,8 @@ let studentOne = new Student({
   className:"CS132", 
   favSubjects: ['JS', 'Node', 'Redux']});
 
-console.log(studentOne.listSubjects);
+console.log(studentOne.listSubjects('object'));
+console.log(studentOne.PRAssignment('Math'));
 
 
 /*
